@@ -7,6 +7,7 @@ const fields = {
 };
 
 const elements = {
+    tituloAnalise: document.getElementById('titulo-analise'), // Novo mapeamento
     statTotal: document.getElementById('stat-total'),
     statS: document.getElementById('stat-s'),
     statW: document.getElementById('stat-w'),
@@ -17,25 +18,28 @@ const elements = {
     btnSalvar: document.getElementById('btn-salvar'),
     btnLimpar: document.getElementById('btn-limpar'),
     btnExportPdf: document.getElementById('btn-export-pdf'),
-    btnTema: document.getElementById('btn-tema'), // Adicionado para o Modo Claro/Escuro
+    btnTema: document.getElementById('btn-tema'),
     presetLoader: document.getElementById('preset-loader')
 };
 
 /* Presets Estratégicos Robustos */
 const PRESETS = {
     startup: {
+        titulo: "Startup de IA Estratégica",
         S: "• Equipe de engenharia sênior\n• Tecnologia de IA proprietária\n• Baixo custo operacional inicial",
         W: "• Dependência de investidores anjo\n• Marca desconhecida no mercado B2B\n• Ciclo de vendas muito longo",
         O: "• Crescimento do setor de automação\n• Possível parceria com a Microsoft\n• Expansão para o mercado latino",
         T: "• Gigantes tech lançando recursos similares\n• Mudanças na LGPD\n• Instabilidade na taxa de juros"
     },
     cafe: {
+        titulo: "Cafeteria Gourmet Central",
         S: "• Grãos premiados de origem única\n• Localização com alto fluxo de pedestres\n• Ambiente propício para coworking",
         W: "• Espaço físico limitado (poucas mesas)\n• Alta rotatividade de funcionários\n• Preço final acima da média local",
         O: "• Lançamento de programa de assinatura\n• Expansão para delivery de brunch\n• Venda de grãos moídos para casa",
         T: "• Aumento do custo do leite e café\n• Nova franquia Starbucks a 100m\n• Queda no poder de compra da vizinhança"
     },
     freelancer: {
+        titulo: "Carreira Dev Freelancer",
         S: "• Portfólio com grandes marcas internacionais\n• Domínio de stack moderna (Next.js/TS)\n• Entrega rápida e comunicação fluida",
         W: "• Falta de rotina de prospecção ativa\n• Nenhuma rede de backup para emergências\n• Mix de finanças pessoais e PJ",
         O: "• Escassez de especialistas em IA generativa\n• Criação de infoproduto (curso de dev)\n• Migração para contratos fixos (retainer)",
@@ -60,7 +64,7 @@ function updateUI() {
     elements.itemCounter.textContent = `${total} Itens Totais`;
 }
 
-/* Gestão de Tema (Modo Claro/Escuro) */
+/* Gestão de Tema */
 function toggleTema() {
     const isLight = document.body.classList.toggle('light-mode');
     localStorage.setItem('swot_theme', isLight ? 'light' : 'dark');
@@ -68,20 +72,21 @@ function toggleTema() {
 
 function carregarTemaSalvo() {
     const temaSalvo = localStorage.getItem('swot_theme');
-    if (temaSalvo === 'light') {
-        document.body.classList.add('light-mode');
-    }
+    if (temaSalvo === 'light') document.body.classList.add('light-mode');
 }
 
-/* Gestão de Histórico */
+/* Gestão de Histórico Local */
 function salvar() {
     const total = elements.statTotal.textContent;
-    if (total === "0" || total === "0 Itens Totais") {
+    const titulo = elements.tituloAnalise.value.trim() || "Análise Sem Título";
+
+    if (total === "0") {
         return alert("A matriz está vazia! Adicione alguns pontos antes de salvar.");
     }
     
     const version = {
-        time: new Date().toLocaleTimeString('pt-BR'),
+        titulo: titulo,
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
         date: new Date().toLocaleDateString('pt-BR'),
         total: total
     };
@@ -95,38 +100,36 @@ function salvar() {
 function renderHistory() {
     const history = JSON.parse(localStorage.getItem('swot_history')) || [];
     elements.historicoList.innerHTML = history.map(h => 
-        `<li><strong>[${h.date} - ${h.time}]</strong><br>Salvo com ${h.total}</li>`
+        `<li>
+            <strong>${h.titulo}</strong><br>
+            <small>${h.date} às ${h.time} — ${h.total} itens</small>
+        </li>`
     ).join('') || "<li>Nenhuma versão salva localmente.</li>";
 }
 
 /* Event Listeners */
 
-// Atualização em tempo real
 Object.values(fields).forEach(f => f.addEventListener('input', updateUI));
 
-// Botão Salvar
 elements.btnSalvar.addEventListener('click', salvar);
-
-// Botão Tema
 elements.btnTema.addEventListener('click', toggleTema);
 
-// Botão Limpar
 elements.btnLimpar.addEventListener('click', () => {
     if(confirm("Deseja apagar permanentemente todos os campos desta matriz?")) {
         Object.values(fields).forEach(f => f.value = '');
+        elements.tituloAnalise.value = '';
         updateUI();
     }
 });
 
-// Exportar PDF
 elements.btnExportPdf.addEventListener('click', () => {
     window.print();
 });
 
-// Carregar Exemplos
 elements.presetLoader.addEventListener('change', (e) => {
     const p = PRESETS[e.target.value];
     if(p) {
+        elements.tituloAnalise.value = p.titulo;
         fields.S.value = p.S;
         fields.W.value = p.W;
         fields.O.value = p.O;
