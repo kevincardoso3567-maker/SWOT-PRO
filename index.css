@@ -1,0 +1,237 @@
+/* Configurações Globais e Variáveis (Dark Mode por padrão) */
+:root {
+    --fundo: #0a0e17;
+    --texto: #e6eef8;
+    --texto-aux: #95a0b3;
+    --destaque: #00d4ff;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --input-bg: rgba(0, 0, 0, 0.2);
+    --border: rgba(255, 255, 255, 0.08);
+    --radius: 12px;
+    
+    /* Cores Fixas dos Quadrantes SWOT */
+    --cor-s: #1b5e20; /* Verde */
+    --cor-w: #b71c1c; /* Vermelho */
+    --cor-o: #fbc02d; /* Amarelo */
+    --cor-t: #37474f; /* Cinza Azulado */
+}
+
+/* Variáveis para o Modo Claro */
+body.light-mode {
+    --fundo: #f0f4f8;
+    --texto: #1a202c;
+    --texto-aux: #4a5568;
+    --destaque: #007bb5;
+    --card-bg: #ffffff;
+    --input-bg: rgba(255, 255, 255, 0.5);
+    --border: #cbd5e0;
+}
+
+/* Reset e Estrutura Base */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--fundo);
+    color: var(--texto);
+    margin: 0;
+    padding: 20px;
+    transition: background 0.3s, color 0.3s;
+}
+
+header {
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+h1 { 
+    font-weight: 900; 
+    color: var(--destaque); 
+    margin: 0; 
+    letter-spacing: 2px; 
+    text-transform: uppercase;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Cartões Reutilizáveis */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Grid da Matriz */
+.quadrantes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.quadrante {
+    padding: 15px;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    color: white; /* Texto padrão claro para fundos escuros */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Estilização por Tipo de Quadrante */
+.quadrante[data-type="S"] { background: var(--cor-s); }
+.quadrante[data-type="W"] { background: var(--cor-w); }
+.quadrante[data-type="O"] { background: var(--cor-o); color: #222; } /* Amarelo pede texto escuro */
+.quadrante[data-type="T"] { background: var(--cor-t); }
+
+.quadrante h3 { 
+    margin: 0 0 10px; 
+    font-size: 1.1rem; 
+    text-transform: uppercase; 
+    font-weight: 700;
+}
+
+/* Áreas de Texto */
+textarea {
+    width: 100%;
+    min-height: 120px;
+    background: var(--input-bg);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: inherit;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    resize: none;
+    box-sizing: border-box;
+}
+
+/* Dicas abaixo dos textareas */
+.dica { 
+    font-size: 0.75rem; 
+    margin-top: 8px; 
+    opacity: 0.8; 
+    font-style: italic; 
+}
+
+/* Estatísticas */
+.stats-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+}
+
+.stat-card { 
+    background: rgba(128,128,128,0.1); 
+    padding: 12px; 
+    text-align: center; 
+    border-radius: 8px; 
+    font-size: 0.8rem;
+}
+
+.stat-card strong { 
+    display: block; 
+    font-size: 1.6rem; 
+    margin-top: 4px;
+}
+
+.total-box { 
+    grid-column: span 2; 
+    background: rgba(0, 212, 255, 0.1); 
+    border: 1px solid var(--destaque); 
+    color: var(--destaque);
+}
+
+/* Botões e Ferramentas */
+.toolbar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-principal { 
+    background: var(--destaque); 
+    color: #000; 
+    border: none; 
+    padding: 10px 18px; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: 0.2s;
+}
+
+.btn-principal:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+.btn-secundario { 
+    background: transparent; 
+    color: var(--texto); 
+    border: 1px solid var(--border); 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+}
+
+.btn-secundario:hover { background: rgba(128,128,128,0.1); }
+
+.btn-limpar { 
+    background: transparent; 
+    color: #ff4757; 
+    border: 1px solid #ff4757; 
+    margin-top: 15px; 
+    padding: 10px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    width: 100%;
+    font-weight: bold;
+}
+
+/* Listas de Histórico */
+.resultados-list { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0;
+    font-size: 0.85rem; 
+}
+
+.resultados-list li { 
+    padding: 10px 0; 
+    border-bottom: 1px solid var(--border); 
+    color: var(--texto-aux);
+}
+
+/* -----------------------------------------------------------
+   MODO DE IMPRESSÃO (PDF)
+   Garante que as cores dos quadrantes saiam no PDF/Papel
+----------------------------------------------------------- */
+@media print {
+    body { background: white !important; color: black !important; padding: 0 !important; }
+    header, .toolbar, .analise-header, .btn-limpar, footer { display: none !important; }
+    .main-content { display: block !important; width: 100% !important; }
+    .card { border: none !important; background: transparent !important; padding: 0 !important; }
+    .quadrantes-grid { gap: 10px !important; margin-bottom: 20px; }
+    .quadrante { 
+        -webkit-print-color-adjust: exact !important; 
+        print-color-adjust: exact !important; 
+        border: 1px solid #ddd !important;
+        margin-bottom: 10px;
+    }
+    textarea { border: none !important; background: transparent !important; color: inherit !important; overflow: visible !important; }
+}
+
+/* Responsividade Mobile */
+@media (max-width: 900px) {
+    .main-content { grid-template-columns: 1fr; }
+    .quadrantes-grid { grid-template-columns: 1fr; }
+}

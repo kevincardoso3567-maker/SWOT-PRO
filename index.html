@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWOT Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-text">
+            <h1>SWOT</h1>
+            <p>Análise estratégica interativa</p>
+        </div>
+        <div class="toolbar">
+            <button id="btn-tema" class="btn-secundario">🌓 Tema</button>
+            <select id="preset-loader" class="btn-secundario">
+                <option value="">Carregar Exemplo...</option>
+                <option value="startup">Startup Tech</option>
+                <option value="cafe">Cafeteria Local</option>
+                <option value="freelancer">Freelancer</option>
+            </select>
+            <button id="btn-salvar" class="btn-principal">Salvar Versão</button>
+            <button id="btn-export-pdf" class="btn-secundario">Exportar PDF</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="card analise-area">
+            <div class="analise-header">
+                <h2>Entrada Estratégica</h2>
+                <span class="badge" id="item-counter">0 Itens</span>
+            </div>
+
+            <div class="quadrantes-grid">
+                <div class="quadrante" data-type="S">
+                    <h3>Forças</h3>
+                    <textarea id="swot-s" placeholder="Pontos fortes internos..."></textarea>
+                    <p class="dica">O que fazemos bem?</p>
+                </div>
+                <div class="quadrante" data-type="W">
+                    <h3>Fraquezas</h3>
+                    <textarea id="swot-w" placeholder="Pontos fracos internos..."></textarea>
+                    <p class="dica">Onde falhamos?</p>
+                </div>
+                <div class="quadrante" data-type="O">
+                    <h3>Oportunidades</h3>
+                    <textarea id="swot-o" placeholder="Chances externas..."></textarea>
+                    <p class="dica">O que podemos aproveitar?</p>
+                </div>
+                <div class="quadrante" data-type="T">
+                    <h3>Ameaças</h3>
+                    <textarea id="swot-t" placeholder="Riscos externos..."></textarea>
+                    <p class="dica">O que nos ameaça?</p>
+                </div>
+            </div>
+
+            <div class="analise-acoes">
+                <button id="btn-limpar" class="btn-limpar">Limpar Matriz</button>
+            </div>
+        </section>
+
+        <aside class="card resultados-panel">
+            <div class="painel-bloco">
+                <h4>Estatísticas Completas</h4>
+                <div class="stats-grid">
+                    <div class="stat-card total-box">Total Geral<strong id="stat-total">0</strong></div>
+                    <div class="stat-card">Forças<strong id="stat-s" style="color: #2ecc71;">0</strong></div>
+                    <div class="stat-card">Fraquezas<strong id="stat-w" style="color: #ff4757;">0</strong></div>
+                    <div class="stat-card">Oportunidades<strong id="stat-o" style="color: #f1c40f;">0</strong></div>
+                    <div class="stat-card">Ameaças<strong id="stat-t" style="color: #95a5a6;">0</strong></div>
+                </div>
+            </div>
+
+            <div class="painel-bloco">
+                <h4>Histórico</h4>
+                <ul id="historico-list" class="resultados-list">
+                    <li>Nenhuma versão salva.</li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <script src="index.js"></script>
+</body>
+</html>
