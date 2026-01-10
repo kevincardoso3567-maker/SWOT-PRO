@@ -55,6 +55,30 @@ h1 {
     text-transform: uppercase;
 }
 
+/* NOVO: Estilização do Campo de Título da Análise */
+#titulo-analise {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--border);
+    color: var(--destaque);
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 8px 0;
+    margin-bottom: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#titulo-analise:focus {
+    border-bottom-color: var(--destaque);
+}
+
+#titulo-analise::placeholder {
+    color: var(--texto-aux);
+    opacity: 0.5;
+}
+
 .main-content {
     display: grid;
     grid-template-columns: 1fr 320px;
@@ -85,14 +109,14 @@ h1 {
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
-    color: white; /* Texto padrão claro para fundos escuros */
+    color: white; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* Estilização por Tipo de Quadrante */
 .quadrante[data-type="S"] { background: var(--cor-s); }
 .quadrante[data-type="W"] { background: var(--cor-w); }
-.quadrante[data-type="O"] { background: var(--cor-o); color: #222; } /* Amarelo pede texto escuro */
+.quadrante[data-type="O"] { background: var(--cor-o); color: #222; }
 .quadrante[data-type="T"] { background: var(--cor-t); }
 
 .quadrante h3 { 
@@ -213,11 +237,16 @@ textarea {
 
 /* -----------------------------------------------------------
    MODO DE IMPRESSÃO (PDF)
-   Garante que as cores dos quadrantes saiam no PDF/Papel
 ----------------------------------------------------------- */
 @media print {
     body { background: white !important; color: black !important; padding: 0 !important; }
-    header, .toolbar, .analise-header, .btn-limpar, footer { display: none !important; }
+    header, .toolbar, .btn-limpar, footer { display: none !important; }
+    #titulo-analise { 
+        border: none !important; 
+        color: black !important; 
+        font-size: 1.8rem !important; 
+        margin-bottom: 20px !important;
+    }
     .main-content { display: block !important; width: 100% !important; }
     .card { border: none !important; background: transparent !important; padding: 0 !important; }
     .quadrantes-grid { gap: 10px !important; margin-bottom: 20px; }
