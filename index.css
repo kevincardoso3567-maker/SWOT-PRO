@@ -55,7 +55,7 @@ h1 {
     text-transform: uppercase;
 }
 
-/* NOVO: Estilização do Campo de Título da Análise */
+/* Estilização do Campo de Título da Análise */
 #titulo-analise {
     width: 100%;
     background: transparent;
@@ -225,7 +225,7 @@ textarea {
 .resultados-list { 
     list-style: none; 
     padding: 0; 
-    margin: 0;
+    margin: 0; 
     font-size: 0.85rem; 
 }
 
@@ -236,31 +236,83 @@ textarea {
 }
 
 /* -----------------------------------------------------------
+    RESPONSIVIDADE (Celulares e Tablets)
+----------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .toolbar {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .quadrantes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn-principal, .btn-secundario {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Impede zoom automático no iOS ao focar campos */
+    textarea, #titulo-analise {
+        font-size: 16px;
+    }
+}
+
+/* -----------------------------------------------------------
    MODO DE IMPRESSÃO (PDF)
 ----------------------------------------------------------- */
 @media print {
     body { background: white !important; color: black !important; padding: 0 !important; }
-    header, .toolbar, .btn-limpar, footer { display: none !important; }
+    header, .toolbar, .btn-limpar, .dica, footer { display: none !important; }
+    
     #titulo-analise { 
         border: none !important; 
         color: black !important; 
         font-size: 1.8rem !important; 
         margin-bottom: 20px !important;
     }
+    
     .main-content { display: block !important; width: 100% !important; }
-    .card { border: none !important; background: transparent !important; padding: 0 !important; }
-    .quadrantes-grid { gap: 10px !important; margin-bottom: 20px; }
+    .card { border: none !important; background: transparent !important; padding: 0 !important; box-shadow: none !important; }
+    
+    .quadrantes-grid { 
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important; /* Mantém 2x2 na impressão se possível */
+        gap: 10px !important; 
+    }
+    
     .quadrante { 
         -webkit-print-color-adjust: exact !important; 
         print-color-adjust: exact !important; 
         border: 1px solid #ddd !important;
         margin-bottom: 10px;
+        color: black !important; /* Melhora contraste na impressão */
     }
-    textarea { border: none !important; background: transparent !important; color: inherit !important; overflow: visible !important; }
-}
+    
+    /* Força cor preta no texto para economizar tinta e melhorar leitura */
+    .quadrante[data-type="O"] { color: black !important; }
 
-/* Responsividade Mobile */
-@media (max-width: 900px) {
-    .main-content { grid-template-columns: 1fr; }
-    .quadrantes-grid { grid-template-columns: 1fr; }
+    textarea { 
+        border: none !important; 
+        background: transparent !important; 
+        color: inherit !important; 
+        overflow: visible !important; 
+        height: auto !important;
+    }
 }
