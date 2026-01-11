@@ -58,6 +58,9 @@ O projeto encontra-se em **fase de desenvolvimento**, utilizando o **Google Shee
 - Estruturar histórico de análises
 - Possível expansão para backend dedicado
 
+---
+https://github.com/user-attachments/assets/db6e76c1-af60-43c7-9e38-e8356cf0e7f5
+
 
 
 
